@@ -1,5 +1,7 @@
 package view
 
+import contextProvider.CoroutineContextProvider
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -7,13 +9,15 @@ import model.User
 import presentation.MainPresenter
 
 class MainView(
-    private val presenter: MainPresenter
+    private val presenter: MainPresenter,
+    private val contextProvider: CoroutineContextProvider,
+    private val coroutineScope: CoroutineScope
 ) {
 
   var userData: User? = null
 
   fun fetchUserData() {
-    GlobalScope.launch(Dispatchers.IO) {
+    coroutineScope.launch(contextProvider.context()) {
       userData = presenter.getUser("101")
     }
   }
