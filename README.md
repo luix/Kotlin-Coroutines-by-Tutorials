@@ -1,4 +1,4 @@
-# Kotlin-Coroutines-by-Tutorials
+# Kotlin Coroutines by Tutorials
 Coroutines with Kotlin represents one of the most interesting and fasinating challenges in the software engineering world. It’s an opportunity to implement complex concurrent tasks in an elegant and performant way. These tutorials gives the opportunity to learn the basic concepts about multithreading and how concurrent programming can be simplified using Kotlin and Coroutines.
 
 # About Kotlin
