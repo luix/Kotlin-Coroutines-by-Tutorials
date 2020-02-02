@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     //region --------- Modify below to setup app to use a specific type of async method --------- //
     val doProcessingOnUiThread = false // true
-    val methodToUse = MethodToDownloadImage.Thread
+    val methodToUse = MethodToDownloadImage.AsyncTask    //Thread
     //endregion
 
     // Setup the UI text
