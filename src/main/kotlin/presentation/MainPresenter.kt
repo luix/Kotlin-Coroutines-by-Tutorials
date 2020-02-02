@@ -8,6 +8,6 @@ class MainPresenter {
   suspend fun getUser(userId: String): User {
     delay(1000)
 
-    return User(userId, "Filip")
+    return User(userId, "Yomero")
   }
 }
