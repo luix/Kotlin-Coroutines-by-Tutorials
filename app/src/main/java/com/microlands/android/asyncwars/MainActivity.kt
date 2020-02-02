@@ -46,6 +46,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Thread.sleep
 import java.util.concurrent.Executors
 
 
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     contentLoadingProgressBar.startAnimation(rotateAnimation)
 
     //region --------- Modify below to setup app to use a specific type of async method --------- //
-    val doProcessingOnUiThread = true
+    val doProcessingOnUiThread = false // true
     val methodToUse = MethodToDownloadImage.Thread
     //endregion
 
@@ -92,14 +93,14 @@ class MainActivity : AppCompatActivity() {
       textViewMethodUsed.text = "Calculating on UI thread: Fibonacci Number"
     } else {
       when (methodToUse) {
-        MethodToDownloadImage.Thread -> setMethodBeingUsedInUi("Thread")
-        MethodToDownloadImage.AsyncTask -> setMethodBeingUsedInUi("AsyncTask")
+        MethodToDownloadImage.Thread        -> setMethodBeingUsedInUi("Thread")
+        MethodToDownloadImage.AsyncTask     -> setMethodBeingUsedInUi("AsyncTask")
         MethodToDownloadImage.IntentService -> setMethodBeingUsedInUi("IntentService")
-        MethodToDownloadImage.Handler -> setMethodBeingUsedInUi("Handler")
+        MethodToDownloadImage.Handler       -> setMethodBeingUsedInUi("Handler")
         MethodToDownloadImage.HandlerThread -> setMethodBeingUsedInUi("HandlerThread")
-        MethodToDownloadImage.Executor -> setMethodBeingUsedInUi("Executor")
-        MethodToDownloadImage.RxJava -> setMethodBeingUsedInUi("RxJava")
-        MethodToDownloadImage.Coroutine -> setMethodBeingUsedInUi("Coroutine")
+        MethodToDownloadImage.Executor      -> setMethodBeingUsedInUi("Executor")
+        MethodToDownloadImage.RxJava        -> setMethodBeingUsedInUi("RxJava")
+        MethodToDownloadImage.Coroutine     -> setMethodBeingUsedInUi("Coroutine")
       }
     }
 
@@ -108,18 +109,20 @@ class MainActivity : AppCompatActivity() {
       imageView?.setImageBitmap(null)
 
       if (doProcessingOnUiThread) {
+        showToast("Calculating in UI thread...")
         // Processing on UI thread, blocking UI
         runUiBlockingProcessing()
       } else {
+        showToast("Downloading...")
         when (methodToUse) {
-          MethodToDownloadImage.Thread -> getImageUsingThread()
-          MethodToDownloadImage.AsyncTask -> getImageUsingAsyncTask()
+          MethodToDownloadImage.Thread        -> getImageUsingThread()
+          MethodToDownloadImage.AsyncTask     -> getImageUsingAsyncTask()
           MethodToDownloadImage.IntentService -> getImageUsingIntentService()
-          MethodToDownloadImage.Handler -> getImageUsingHandler()
+          MethodToDownloadImage.Handler       -> getImageUsingHandler()
           MethodToDownloadImage.HandlerThread -> getImageUsingHandlerThread()
-          MethodToDownloadImage.Executor -> getImageUsingExecutors()
-          MethodToDownloadImage.RxJava -> getImageUsingRx()
-          MethodToDownloadImage.Coroutine -> getImageUsingCoroutines()
+          MethodToDownloadImage.Executor      -> getImageUsingExecutors()
+          MethodToDownloadImage.RxJava        -> getImageUsingRx()
+          MethodToDownloadImage.Coroutine     -> getImageUsingCoroutines()
         }
       }
     }
@@ -128,6 +131,7 @@ class MainActivity : AppCompatActivity() {
   // ----------- Async Methods -----------//
 
   fun runUiBlockingProcessing() {
+    sleep(500)
     // Processing
     showToast("Result: ${fibonacci(40)}")
   }
